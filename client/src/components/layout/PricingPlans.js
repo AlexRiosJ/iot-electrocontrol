@@ -8,12 +8,12 @@ const PricingPlans = (props) => {
 
   return (
     <div className="grid-3 text-center">
-      <div className="card">
+      <div className="card border-success">
         <h3 className="text-success">Begginer</h3>
         <h1 className="mb-0" style={{ fontSize: "400%" }}>
           $15
         </h1>
-        <small>Montly</small>
+        <small>Monthly</small>
         <br />
         <p>Start to control and calculate your electric usage.</p>
         <button className="btn btn-success" onClick={redirectRegister}>
@@ -24,12 +24,12 @@ const PricingPlans = (props) => {
         <p>Weekly Usage History</p>
         <p>Control Panel</p>
       </div>
-      <div className="card">
+      <div className="card border-info">
         <h3 className="text-info">Pro</h3>
         <h1 className="mb-0" style={{ fontSize: "400%" }}>
           $25
         </h1>
-        <small>Montly</small>
+        <small>Monthly</small>
         <br />
         <p>Add more sections to your control panel.</p>
         <button className="btn btn-info" onClick={redirectRegister}>
@@ -40,12 +40,12 @@ const PricingPlans = (props) => {
         <p>Monthly Usage History</p>
         <p>Control Panel</p>
       </div>
-      <div className="card">
+      <div className="card border-warning">
         <h3 className="text-warning">VIP</h3>
         <h1 className="mb-0" style={{ fontSize: "400%" }}>
           $35
         </h1>
-        <small>Montly</small>
+        <small>Monthly</small>
         <br />
         <p>Full package best for any purposes.</p>
         <button className="btn btn-warning" onClick={redirectRegister}>

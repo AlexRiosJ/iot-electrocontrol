@@ -13,6 +13,7 @@ import Home from "./components/pages/Home";
 import Login from "./components/auth/Login";
 import Register from "./components/auth/Register";
 import PrivateRoute from "./components/routing/PrivateRoute";
+import UsageState from "./context/usage/UsageState";
 
 if (localStorage.token) {
   setAuthToken(localStorage.token);
@@ -22,18 +23,20 @@ const App = () => {
   return (
     <AuthState>
       <AlertState>
-        <Router>
-          <>
-            <Navbar />
-            <div className="container">
-              <Switch>
-                <Route exact path="/" component={Home} />
-                <PrivateRoute exact path="/login" component={Login} />
-                <PrivateRoute exact path="/register" component={Register} />
-              </Switch>
-            </div>
-          </>
-        </Router>
+        <UsageState>
+          <Router>
+            <>
+              <Navbar />
+              <div className="container">
+                <Switch>
+                  <Route exact path="/" component={Home} />
+                  <PrivateRoute exact path="/login" component={Login} />
+                  <PrivateRoute exact path="/register" component={Register} />
+                </Switch>
+              </div>
+            </>
+          </Router>
+        </UsageState>
       </AlertState>
     </AuthState>
   );

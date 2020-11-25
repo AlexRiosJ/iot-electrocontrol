@@ -40,3 +40,17 @@ h3 {
   grid-template-columns: repeat(3, 1fr);
   grid-gap: 1rem;
 }
+
+.grid-4 {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-gap: 1rem;
+}
+
+.switch-date {
+  display: none;
+}
+
+.section-switch-card:hover > .switch-date {
+  display: block;
+}
