@@ -27,7 +27,7 @@ const UsageState = (props) => {
     try {
       const config = {
         headers: {
-          "X-AIO-Key": "aio_VMIx96AVVa0hTchBXR8izxfyiy1T"
+          "X-AIO-Key": process.env.REACT_APP_AIO_KEY
         }
       };
 
@@ -51,7 +51,7 @@ const UsageState = (props) => {
     try {
       const config = {
         headers: {
-          "X-AIO-Key": "aio_VMIx96AVVa0hTchBXR8izxfyiy1T",
+          "X-AIO-Key": process.env.REACT_APP_AIO_KEY,
           "Content-Type": "application/json"
         }
       };
@@ -77,7 +77,7 @@ const UsageState = (props) => {
     try {
       const config = {
         headers: {
-          "X-AIO-Key": "aio_VMIx96AVVa0hTchBXR8izxfyiy1T"
+          "X-AIO-Key": process.env.REACT_APP_AIO_KEY
         }
       };
 
