@@ -3,7 +3,7 @@ import Switch from "react-switch";
 
 import UsageContext from "../../context/usage/usageContext";
 
-const SectionSwitch = ({ title }) => {
+const SectionSwitch = ({ title, id }) => {
   const usageContext = useContext(UsageContext);
 
   const {
@@ -14,21 +14,25 @@ const SectionSwitch = ({ title }) => {
   } = usageContext;
 
   useEffect(() => {
-    getSectionSwitchValue();
+    getSectionSwitchValue(id);
     // eslint-disable-next-line
   }, []);
 
+  const onSwitchChange = () => {
+    changeSwtichValue(id);
+  };
+
   return (
-    !loadingSectionValue && (
+    !loadingSectionValue[id] && (
       <div className="card section-switch-card" style={{ height: "10rem" }}>
         <h3>{title}</h3>
         <div className="d-flex justify-content-center">
           <Switch
             className="react-switch d-flex mb-1"
-            onChange={changeSwtichValue}
+            onChange={onSwitchChange}
             onColor="#93c54b"
             offColor="#d9534f"
-            checked={sectionValue.value === "ON"}
+            checked={sectionValue[id].value === "ON"}
             checkedIcon={<div style={textStyle}>ON</div>}
             uncheckedIcon={<div style={textStyle}>OFF</div>}
             height={75}
@@ -38,7 +42,7 @@ const SectionSwitch = ({ title }) => {
           />
         </div>
         <small className="text-muted switch-date">
-          {new Date(sectionValue.created_at).toLocaleDateString("en-US", {
+          {new Date(sectionValue[id].created_at).toLocaleDateString("en-US", {
             year: "numeric",
             month: "long",
             day: "numeric",

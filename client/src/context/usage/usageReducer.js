@@ -18,14 +18,19 @@ const usageReducer = (state, action) => {
     case GET_SECTION_VALUE:
       return {
         ...state,
-        loadingSectionValue: false,
-        sectionValue: action.payload[0]
+        loadingSectionValue: state.loadingSectionValue.map((val, index) =>
+          index === action.payload[1] ? false : val
+        ),
+        sectionValue: state.sectionValue.map((val, index) =>
+          index === action.payload[1] ? action.payload[0][0] : val
+        )
       };
     case CHANGE_SECTION_VALUE:
       return {
         ...state,
-        loadingSectionValue: false,
-        sectionValue: action.payload
+        sectionValue: state.sectionValue.map((val, index) =>
+          index === action.payload[1] ? action.payload[0] : val
+        )
       };
     case GET_USAGE_ERROR:
     case GET_SECTION_ERROR:

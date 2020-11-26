@@ -1,6 +1,4 @@
-import React, { useEffect, useContext } from "react";
-
-import UsageContext from "../../context/usage/usageContext";
+import React from "react";
 
 import {
   LineChart,
@@ -12,28 +10,21 @@ import {
   Legend
 } from "recharts";
 
-const UsageChart = () => {
-  const usageContext = useContext(UsageContext);
-
-  const { getUsageHistory, usageHistory, loading } = usageContext;
-
-  useEffect(() => {
-    getUsageHistory();
-    // eslint-disable-next-line
-  }, []);
-
+const UsageChart = ({ usageHistory }) => {
   return (
-    !loading && (
-      <div className="card">
+    <div className="card" style={{ height: "18rem" }}>
+      <div style={{ verticalAlign: "middle" }}>
         <LineChart
           width={530}
-          height={300}
-          data={usageHistory.map((element) => {
-            return {
-              ...element,
-              created_at: new Date(element.created_at).toLocaleDateString()
-            };
-          })}
+          height={260}
+          data={usageHistory
+            .map((element) => {
+              return {
+                ...element,
+                created_at: new Date(element.created_at).toLocaleDateString()
+              };
+            })
+            .reverse()}
           margin={{ top: 5, right: 0, bottom: 5, left: 0 }}
         >
           <Line
@@ -49,7 +40,7 @@ const UsageChart = () => {
           <Legend verticalAlign="top" height={36} />
         </LineChart>
       </div>
-    )
+    </div>
   );
 };
 

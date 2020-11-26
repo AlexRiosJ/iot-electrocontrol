@@ -1,26 +1,36 @@
-import React from "react";
+import React, { useMemo } from "react";
 
 import GaugeChart from "react-gauge-chart";
 
-const UsageGauge = () => {
+const UsageGauge = ({ min, max, usageHistory }) => {
+  const accUsage = useMemo(
+    () => usageHistory.reduce((acc, curr) => Number(curr.value) + acc, 0),
+    [usageHistory]
+  );
+
   return (
-    <div className="card">
+    <div className="card" style={{ height: "18rem" }}>
       <h3>General usage</h3>
       <GaugeChart
         id="gauge-chart3"
-        nrOfLevels={5}
-        textColor="#000"
+        nrOfLevels={4}
+        textColor="#000cc"
         colors={["#93c54b", "#d9534f"]}
         arcWidth={0.2}
         arcPadding={0.1}
-        percent={0.25}
+        needleColor="#8e8c84cc"
+        needleBaseColor="#3e3f3acc"
+        percent={accUsage / max}
       />
       <div className="row">
         <div className="col">
-          <h4 className="float-left">0kWh</h4>
+          <h4 className="float-left">{min}kWh</h4>
         </div>
         <div className="col">
-          <h4 className="float-right">500kWh</h4>
+          <h4 className="float-left">{accUsage}kWh</h4>
+        </div>
+        <div className="col">
+          <h4 className="float-right">{max}kWh</h4>
         </div>
       </div>
     </div>

@@ -10,6 +10,7 @@ import AlertState from "./context/alert/AlertState";
 
 import Navbar from "./components/layout/Navbar";
 import Home from "./components/pages/Home";
+import Footer from "./components/layout/Footer";
 import Login from "./components/auth/Login";
 import Register from "./components/auth/Register";
 import PrivateRoute from "./components/routing/PrivateRoute";
@@ -34,6 +35,7 @@ const App = () => {
                   <PrivateRoute exact path="/register" component={Register} />
                 </Switch>
               </div>
+              <Footer />
             </>
           </Router>
         </UsageState>

@@ -16,14 +16,14 @@ import setAuthToken from "../../utils/setAuthToken";
 const UsageState = (props) => {
   const initialState = {
     usageHistory: [],
-    sectionValue: null,
+    sectionValue: [null, null, null],
     loading: true,
-    loadingSectionValue: true
+    loadingSectionValue: [true, true, true]
   };
 
   const [state, dispatch] = useReducer(UsageReducer, initialState);
 
-  const getSectionSwitchValue = async (section) => {
+  const getSectionSwitchValue = async (id) => {
     try {
       const config = {
         headers: {
@@ -34,20 +34,20 @@ const UsageState = (props) => {
       setAuthToken(undefined);
 
       const res = await axios.get(
-        `https://io.adafruit.com/api/v2/alexriosj/feeds/control-1/data`,
+        `https://io.adafruit.com/api/v2/alexriosj/feeds/control-${id + 1}/data`,
         config
       );
 
       dispatch({
         type: GET_SECTION_VALUE,
-        payload: res.data
+        payload: [res.data, id]
       });
     } catch (err) {
       dispatch({ type: GET_SECTION_ERROR });
     }
   };
 
-  const changeSwtichValue = async () => {
+  const changeSwtichValue = async (id) => {
     try {
       const config = {
         headers: {
@@ -59,14 +59,14 @@ const UsageState = (props) => {
       setAuthToken(undefined);
 
       const res = await axios.post(
-        `https://io.adafruit.com/api/v2/alexriosj/feeds/control-1/data`,
-        state.sectionValue.value === "ON" ? { value: "OFF" } : { value: "ON" },
+        `https://io.adafruit.com/api/v2/alexriosj/feeds/control-${id + 1}/data`,
+        state.sectionValue[id].value === "ON" ? { value: "OFF" } : { value: "ON" },
         config
       );
 
       dispatch({
         type: CHANGE_SECTION_VALUE,
-        payload: res.data
+        payload: [res.data, id]
       });
     } catch (err) {
       dispatch({ type: CHANGE_SECTION_VALUE_ERROR });
