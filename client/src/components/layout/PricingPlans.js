@@ -15,7 +15,7 @@ const PricingPlans = (props) => {
   return (
     <div className="grid-3 text-center">
       <div className="card border-success">
-        <h3 className="text-success">Begginer</h3>
+        <h3 className="text-success">Beginner</h3>
         <h1 className="mb-0" style={{ fontSize: "400%" }}>
           $15
         </h1>
