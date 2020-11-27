@@ -15,33 +15,43 @@ const Welcome = (props) => {
   return (
     <>
       <div className="form-container">
-        <Logo />
-        <h1 className="mt-4" style={{ fontSize: "300%" }}>
-          IoT Electrocontrol
-        </h1>
+        {!props.isAuthenticated ? (
+          <>
+            <Logo />
+            <h1 className="mt-4" style={{ fontSize: "300%" }}>
+              IoT Electrocontrol
+            </h1>
+          </>
+        ) : (
+          <h1 className="mt-4 mb-0" style={{ fontSize: "300%" }}>
+            Select your plan!
+          </h1>
+        )}
       </div>
-      <PricingPlans />
-      <div className="form-container">
-        <h2 className="text-center">
-          Create an account for <span className="text-success">free</span>{" "}
-          today!
-        </h2>
-        <div className="card">
-          <h3 className="text-center">Do you have an account already?</h3>
-          <br />
-          <div className="grid-2">
-            <button className="btn btn-success" onClick={redirectRegister}>
-              Register
-            </button>
-            <button
-              className="btn btn-outline-secondary"
-              onClick={redirectLogin}
-            >
-              Login
-            </button>
+      <PricingPlans isAuthenticated={props.isAuthenticated}/>
+      {!props.isAuthenticated && (
+        <div className="form-container">
+          <h2 className="text-center">
+            Create an account for <span className="text-success">free</span>{" "}
+            today!
+          </h2>
+          <div className="card">
+            <h3 className="text-center">Do you have an account already?</h3>
+            <br />
+            <div className="grid-2">
+              <button className="btn btn-success" onClick={redirectRegister}>
+                Register
+              </button>
+              <button
+                className="btn btn-outline-secondary"
+                onClick={redirectLogin}
+              >
+                Login
+              </button>
+            </div>
           </div>
         </div>
-      </div>
+      )}
     </>
   );
 };

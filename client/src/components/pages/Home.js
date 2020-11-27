@@ -20,7 +20,7 @@ const Home = () => {
       {!loading && isAuthenticated && user != null && user.hasDashboard ? (
         <ControlPanel />
       ) : (
-        <Welcome />
+        <Welcome isAuthenticated={isAuthenticated} />
       )}
     </>
   );

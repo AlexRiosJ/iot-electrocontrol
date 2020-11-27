@@ -3,7 +3,13 @@ import { withRouter } from "react-router-dom";
 
 const PricingPlans = (props) => {
   const redirectRegister = () => {
-    props.history.push("/register");
+    if (props.isAuthenticated) {
+      alert(
+        "This is just a demo. Contact an admin to be able to access to the dashboard view."
+      );
+    } else {
+      props.history.push("/register");
+    }
   };
 
   return (
