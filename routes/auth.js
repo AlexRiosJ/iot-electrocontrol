@@ -20,6 +20,15 @@ router.get("/", auth, async (req, res) => {
   }
 });
 
+router.get("/aio-key", auth, async (req, res) => {
+  try {
+    res.status(202).json({aioKey: process.env.AIO_KEY});
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send("Server error");
+  }
+});
+
 // @route       POST api/auth
 // @desc        Auth user & get token
 // @access      Public

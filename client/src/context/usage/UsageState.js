@@ -24,14 +24,19 @@ const UsageState = (props) => {
   const [state, dispatch] = useReducer(UsageReducer, initialState);
 
   const getSectionSwitchValue = async (id) => {
+    if (localStorage.token) {
+      await setAuthToken(localStorage.token);
+    }
     try {
+      const aioKeyRes = await axios.get("/api/auth/aio-key");
+
       const config = {
         headers: {
-          "X-AIO-Key": process.env.REACT_APP_AIO_KEY
+          "X-AIO-Key": aioKeyRes.data.aioKey
         }
       };
 
-      setAuthToken(undefined);
+      await setAuthToken(undefined);
 
       const res = await axios.get(
         `https://io.adafruit.com/api/v2/alexriosj/feeds/control-${id + 1}/data`,
@@ -48,19 +53,26 @@ const UsageState = (props) => {
   };
 
   const changeSwtichValue = async (id) => {
+    if (localStorage.token) {
+      await setAuthToken(localStorage.token);
+    }
     try {
+      const aioKeyRes = await axios.get("/api/auth/aio-key");
+
       const config = {
         headers: {
-          "X-AIO-Key": process.env.REACT_APP_AIO_KEY,
+          "X-AIO-Key": aioKeyRes.data.aioKey,
           "Content-Type": "application/json"
         }
       };
 
-      setAuthToken(undefined);
+      await setAuthToken(undefined);
 
       const res = await axios.post(
         `https://io.adafruit.com/api/v2/alexriosj/feeds/control-${id + 1}/data`,
-        state.sectionValue[id].value === "ON" ? { value: "OFF" } : { value: "ON" },
+        state.sectionValue[id].value === "ON"
+          ? { value: "OFF" }
+          : { value: "ON" },
         config
       );
 
@@ -74,14 +86,19 @@ const UsageState = (props) => {
   };
 
   const getUsageHistory = async () => {
+    if (localStorage.token) {
+      await setAuthToken(localStorage.token);
+    }
     try {
+      const aioKeyRes = await axios.get("/api/auth/aio-key");
+
       const config = {
         headers: {
-          "X-AIO-Key": process.env.REACT_APP_AIO_KEY
+          "X-AIO-Key": aioKeyRes.data.aioKey
         }
       };
 
-      setAuthToken(undefined);
+      await setAuthToken(undefined);
 
       const res = await axios.get(
         "https://io.adafruit.com/api/v2/alexriosj/feeds/grafica-de-consumo/data",
