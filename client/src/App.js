@@ -15,6 +15,7 @@ import Login from "./components/auth/Login";
 import Register from "./components/auth/Register";
 import PrivateRoute from "./components/routing/PrivateRoute";
 import UsageState from "./context/usage/UsageState";
+import NotFound from "./components/pages/NotFound";
 
 if (localStorage.token) {
   setAuthToken(localStorage.token);
@@ -33,6 +34,7 @@ const App = () => {
                   <Route exact path="/" component={Home} />
                   <PrivateRoute exact path="/login" component={Login} />
                   <PrivateRoute exact path="/register" component={Register} />
+                  <Route exact path="*" component={NotFound} />
                 </Switch>
               </div>
               <Footer />
