@@ -27,7 +27,7 @@ const UsageGauge = ({ min, max, usageHistory }) => {
           <h4 className="float-left">{min}kWh</h4>
         </div>
         <div className="col">
-          <h4 className="float-left">{accUsage}kWh</h4>
+          <h4 className="float-left">{accUsage.toFixed(2)}kWh</h4>
         </div>
         <div className="col">
           <h4 className="float-right">{max}kWh</h4>

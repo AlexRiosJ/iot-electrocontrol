@@ -70,7 +70,7 @@ const UsageLog = ({ usageHistory }) => {
                     )}
                   </td>
                   <td className="col-8" key={`${elem.id}-value`}>
-                    {elem.value}kWh
+                    {Number(elem.value).toFixed(2)}kWh
                   </td>
                 </tr>
               ))}

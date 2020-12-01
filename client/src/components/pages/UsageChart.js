@@ -11,21 +11,32 @@ import {
 } from "recharts";
 
 const UsageChart = ({ usageHistory }) => {
+  const groups = usageHistory.reduce((groups, record) => {
+    const date = record.created_at.split("T")[0];
+    if (!groups[date]) {
+      groups[date] = 0;
+    }
+    groups[date] += Number(record.value);
+    return groups;
+  }, {});
+
+  const groupArrays = Object.keys(groups)
+    .map((elem) => {
+      return {
+        day: elem,
+        value: Number(groups[elem].toFixed(2))
+      };
+    })
+    .reverse();
+
   return (
     <div className="card" style={{ height: "18rem" }}>
       <div style={{ verticalAlign: "middle" }}>
         <LineChart
           width={530}
           height={260}
-          data={usageHistory
-            .map((element) => {
-              return {
-                ...element,
-                created_at: new Date(element.created_at).toLocaleDateString()
-              };
-            })
-            .reverse()}
-          margin={{ top: 5, right: 0, bottom: 5, left: 0 }}
+          data={groupArrays}
+          margin={{ top: 0, right: 0, bottom: 0, left: 5 }}
         >
           <Line
             type="monotone"
@@ -34,7 +45,7 @@ const UsageChart = ({ usageHistory }) => {
             name="Daily Usage"
           />
           <CartesianGrid stroke="#ccc" strokeDasharray="5 5" />
-          <XAxis dataKey="created_at" />
+          <XAxis dataKey="day" />
           <YAxis unit="kWh" />
           <Tooltip />
           <Legend verticalAlign="top" height={36} />

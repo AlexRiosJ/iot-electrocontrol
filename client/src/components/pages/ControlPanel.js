@@ -40,9 +40,9 @@ const ControlPanel = () => {
         )}
       </div>
       <div className="grid-3 text-center">
-        <SectionSwitch title="Section 1" id={0} />
-        <SectionSwitch title="Section 2" id={1} />
-        <SectionSwitch title="Section 3" id={2} />
+        <SectionSwitch title="First Floor" id={0} />
+        <SectionSwitch title="Second Floor" id={1} />
+        <SectionSwitch title="Basement" id={2} />
       </div>
       {!loading && (
         <>
@@ -51,7 +51,7 @@ const ControlPanel = () => {
               <UsageChart usageHistory={usageHistory} />
             </div>
             <div className="col-5">
-              <UsageGauge min={0} max={2000} usageHistory={usageHistory} />
+              <UsageGauge min={0} max={2500} usageHistory={usageHistory} />
             </div>
           </div>
           <UsageLog usageHistory={usageHistory} />
