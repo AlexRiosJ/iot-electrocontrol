@@ -51,10 +51,12 @@ const ControlPanel = () => {
               <UsageChart usageHistory={usageHistory} />
             </div>
             <div className="col-5">
-              <UsageGauge min={0} max={2500} usageHistory={usageHistory} />
+              <UsageGauge min={0} max={500} usageHistory={usageHistory} />
             </div>
           </div>
-          <UsageLog usageHistory={usageHistory} />
+          <UsageLog
+            usageHistory={usageHistory.filter((elem) => elem.value > 0)}
+          />
         </>
       )}
     </div>

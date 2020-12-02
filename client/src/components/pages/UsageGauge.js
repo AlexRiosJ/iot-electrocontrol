@@ -4,7 +4,10 @@ import GaugeChart from "react-gauge-chart";
 
 const UsageGauge = ({ min, max, usageHistory }) => {
   const accUsage = useMemo(
-    () => usageHistory.reduce((acc, curr) => Number(curr.value) + acc, 0),
+    () =>
+      usageHistory
+        .map((elem) => ({ ...elem, value: elem.value / 24 }))
+        .reduce((acc, curr) => Number(curr.value) + acc, 0),
     [usageHistory]
   );
 

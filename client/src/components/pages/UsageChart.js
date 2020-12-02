@@ -24,7 +24,7 @@ const UsageChart = ({ usageHistory }) => {
     .map((elem) => {
       return {
         day: elem,
-        value: Number(groups[elem].toFixed(2))
+        value: groups[elem]
       };
     })
     .reverse();
@@ -35,7 +35,10 @@ const UsageChart = ({ usageHistory }) => {
         <LineChart
           width={530}
           height={260}
-          data={groupArrays}
+          data={groupArrays.map((elem) => ({
+            ...elem,
+            value: Number((elem.value / 24).toFixed(2))
+          }))}
           margin={{ top: 0, right: 0, bottom: 0, left: 5 }}
         >
           <Line

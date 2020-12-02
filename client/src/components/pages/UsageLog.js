@@ -2,8 +2,9 @@ import React, { useState } from "react";
 
 const UsageLog = ({ usageHistory }) => {
   const [state, setState] = useState({
-    totalPages: Math.ceil(usageHistory.length / 5),
-    currPage: 1
+    totalPages: Math.ceil(usageHistory.length / 10),
+    currPage: 1,
+    logsPerPage: 10
   });
 
   const paginate = (array, pageSize, pageNumber) => {
@@ -27,7 +28,7 @@ const UsageLog = ({ usageHistory }) => {
       <div className="card">
         <div className="table-responsive">
           <button
-            className={`btn  m-2 float-left ${
+            className={`btn m-2 float-left ${
               state.currPage === 1 ? "btn-secondary disabled" : "btn-success"
             }`}
             onClick={prevPage}
@@ -40,6 +41,27 @@ const UsageLog = ({ usageHistory }) => {
           >
             First
           </button>
+          <div className="form-group float-left m-2">
+            <select
+              className="custom-select"
+              style={{ width: "200px" }}
+              value={state.logsPerPage}
+              onChange={(event) => {
+                setState({
+                  ...state,
+                  logsPerPage: event.target.value,
+                  totalPages: Math.ceil(
+                    usageHistory.length / event.target.value
+                  )
+                });
+              }}
+            >
+              <option value={5}>Show 5 logs per page</option>
+              <option value={10}>Show 10 logs per page</option>
+              <option value={15}>Show 15 logs per page</option>
+              <option value={20}>Show 20 logs per page</option>
+            </select>
+          </div>
           <button
             className={`btn m-2 float-right ${
               state.currPage === state.totalPages
@@ -53,6 +75,7 @@ const UsageLog = ({ usageHistory }) => {
           <h4 className="text-center mt-2">
             Page {state.currPage} of {state.totalPages}
           </h4>
+
           <table className="table table-hover table-striped table-bordered table-sm">
             <thead>
               <tr className="d-flex">
@@ -61,26 +84,28 @@ const UsageLog = ({ usageHistory }) => {
               </tr>
             </thead>
             <tbody>
-              {paginate(usageHistory, 5, state.currPage).map((elem) => (
-                <tr className="d-flex" key={elem.id}>
-                  <td className="col-4" key={`${elem.id}-date`}>
-                    {new Date(elem.created_at).toLocaleDateString(
-                      "en-US",
-                      dateFormat
-                    )}
-                  </td>
-                  <td className="col-8" key={`${elem.id}-value`}>
-                    {Number(elem.value).toFixed(2)}kWh
-                  </td>
-                </tr>
-              ))}
+              {paginate(usageHistory, state.logsPerPage, state.currPage).map(
+                (elem) => (
+                  <tr className="d-flex" key={elem.id}>
+                    <td className="col-4" key={`${elem.id}-date`}>
+                      {new Date(elem.created_at).toLocaleDateString(
+                        "en-US",
+                        dateFormat
+                      )}
+                    </td>
+                    <td className="col-8" key={`${elem.id}-value`}>
+                      {Number(elem.value).toFixed(2)}kW
+                    </td>
+                  </tr>
+                )
+              )}
             </tbody>
           </table>
           <small className="text-muted">
-            Record {(state.currPage - 1) * 5 + 1} through{" "}
-            {state.currPage * 5 > usageHistory.length
+            Record {(state.currPage - 1) * state.logsPerPage + 1} through{" "}
+            {state.currPage * state.logsPerPage > usageHistory.length
               ? usageHistory.length
-              : state.currPage * 5}{" "}
+              : state.currPage * state.logsPerPage}{" "}
             of {usageHistory.length}
           </small>
         </div>
