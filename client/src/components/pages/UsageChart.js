@@ -12,7 +12,7 @@ import {
 
 const UsageChart = ({ usageHistory }) => {
   const groups = usageHistory.reduce((groups, record) => {
-    const date = record.created_at.split("T")[0];
+    const date = new Date(record.created_at).toLocaleDateString();
     if (!groups[date]) {
       groups[date] = 0;
     }
