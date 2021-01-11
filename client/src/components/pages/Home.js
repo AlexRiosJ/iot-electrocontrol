@@ -2,7 +2,7 @@ import React, { useContext, useEffect } from "react";
 
 import AuthContext from "../../context/auth/authContext";
 
-import ControlPanel from "./ControlPanel";
+// import ControlPanel from "./ControlPanel";
 import Welcome from "./Welcome";
 
 const Home = () => {
@@ -18,7 +18,8 @@ const Home = () => {
   return (
     <>
       {!loading && isAuthenticated && user != null && user.hasDashboard ? (
-        <ControlPanel />
+        // <ControlPanel />
+        <h1 className="mt-4 text-center">🚧 Service under maintenance 🚧</h1>
       ) : (
         <Welcome isAuthenticated={isAuthenticated} />
       )}
